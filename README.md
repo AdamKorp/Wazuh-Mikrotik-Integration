@@ -95,3 +95,45 @@ The -a flag installs all components (single-node deployment).
 
 
 `sudo apt update`
+
+Step 2: Configure Wazuh Dashboard & Secure Access
+1. Reset the Default Password
+Run the Wazuh password tool to set a secure password for the admin user:
+
+
+`sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>`
+
+2. Restart Dependent Services
+   
+Apply the changes by restarting Filebeat and the Wazuh Dashboard:
+
+
+
+`sudo systemctl restart filebeat.service`
+
+`sudo systemctl restart wazuh-dashboard.service`
+
+3. Access the Wazuh Dashboard
+   
+Find your VM’s IP address:
+
+Open a browser and navigate to: https://<YOUR_VM_IP>
+
+Log in with: Username: admin and Password: <YOUR__UPDATED_PASSWORD>
+
+If you see "Wazuh dashboard server is not ready yet":
+
+Wait 1–2 minutes for services to initialize.
+
+Check status with:
+`sudo systemctl status wazuh-dashboard`
+
+4. (Recommended) Create a Proxmox Snapshot
+   
+Before proceeding further, snapshot your VM in Proxmox:
+
+Go to your Proxmox web interface. Locate the Wazuh VM and Click "Snapshot". Name it (e.g., Clean_Wazuh_Base).
+
+Why?
+
+Allows easy rollback if something goes wrong along the way!
