@@ -77,7 +77,7 @@ Resources:
 
 Step 1: Wazuh Installation
 
-1. Download & Run the Installer
+• Download & Run the Installer
 
 
 ```curl -sO https://packages.wazuh.com/4.11/wazuh-install.sh && sudo bash ./wazuh-install.sh -a```
@@ -88,7 +88,7 @@ This script automates the installation of Wazuh manager, indexer, and dashboard.
 The -a flag installs all components (single-node deployment).
 
 
-2. Disable Automatic Updates (Optional but Recommended for Lab Environments)
+• Disable Automatic Updates (Optional but Recommended for Lab Environments)
 
 
 `sudo sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list`
@@ -96,41 +96,36 @@ The -a flag installs all components (single-node deployment).
 
 `sudo apt update`
 
-Step 2: Configure Wazuh Dashboard & Secure Access
-1. Reset the Default Password
-Run the Wazuh password tool to set a secure password for the admin user:
+• Reset the Default Password
 
+Download password tool by running a command `curl -so wazuh-passwords-tool.sh https://packages.wazuh.com/4.11/wazuh-passwords-tool.sh`
+
+Run the Wazuh password tool to set a secure password for the admin user:
 
 `sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>`
 
 ⚠️ If you put a space before a command, it prevents that command from being saved in the shell's history. This is good security practice so that your plaintext password won't be visible in the history ⚠️
 
-2. Restart Dependent Services
+• Restart Dependent Services
    
 Apply the changes by restarting Filebeat and the Wazuh Dashboard:
-
-
 
 `sudo systemctl restart filebeat.service`
 
 `sudo systemctl restart wazuh-dashboard.service`
 
-3. Access the Wazuh Dashboard
+• Access the Wazuh Dashboard
    
-Find your VM’s IP address:
-
-Open a browser and navigate to: https://<YOUR_VM_IP>
+Find your VM’s IP address then open a browser and navigate to: https://<YOUR_VM_IP>
 
 Log in with: Username: admin and Password: <YOUR__UPDATED_PASSWORD>
 
-If you see "Wazuh dashboard server is not ready yet":
-
-Wait 1–2 minutes for services to initialize.
+If you see "Wazuh dashboard server is not ready yet" wait 1–2 minutes for services to initialise.
 
 Check status with:
 `sudo systemctl status wazuh-dashboard`
 
-4. (Recommended) Create a Proxmox Snapshot
+• (Recommended) Create a Proxmox Snapshot
    
 Before proceeding further, snapshot your VM in Proxmox:
 
@@ -141,7 +136,7 @@ Why?
 Allows easy rollback if something goes wrong along the way!
 
 
-Step 3: Configure Wazuh to listen on port 514
+• Configure Wazuh to listen on port 514
 
    
 Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
@@ -160,7 +155,7 @@ Restart wazuh `sudo systemctl restart wazuh-manager`
 
 Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo netstat -tuln | grep 514`
 
-Step 4: Configure MikroTik Log Forwarding
+Step 2: Configure MikroTik Log Forwarding
 
 
 Log into MikroTik via winbox and navigate to: System > Logging > Actions
@@ -170,7 +165,7 @@ Click "New" and create new action. Name: remote, Type: remote. Apply and then do
 Remote Address: <Wazuh server IP>, Remote Port: 514, src address: <MikrotiK's IP>, Remote log format: BDS Syslog, Remote log protocol: UDP. > Apply > OK. 
 
 
-2. Set Logging Rules for each log type to forward:
+• Set Logging Rules for each log type to forward:
 
 Go to System > Logging > Rules, Click "New"
 
