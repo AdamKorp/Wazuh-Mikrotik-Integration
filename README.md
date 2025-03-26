@@ -46,6 +46,7 @@ By combining Wazuh’s advanced threat detection with MikroTik’s network contr
 
 
 
+
 Let’s Build It!
 
 This project will guide you through:
@@ -57,3 +58,18 @@ This project will guide you through:
 3. Generating private&public key for ssh communication
 
 4. Setting up alerts & dashboards for proactive security.
+
+
+
+🔧 Lab Setup
+
+🛡️ MikroTik Device:
+Model: hAP ax2, 
+OS: RouterOS 7.18.2
+
+💻 Virtualization:
+Host: Proxmox VE 8.2.4, 
+VM: Ubuntu 24.04.2 LTS, 
+Resources:
+8GB RAM, 
+70GB disk storage
