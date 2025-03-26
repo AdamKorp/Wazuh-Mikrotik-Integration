@@ -53,12 +53,9 @@ This project will guide you through:
 
 1. Deploying Wazuh (server, indexer, dashboard).
 
-2. Configuring MikroTik to forward logs to Wazuh.
+2. Mikrotik & Wazuh syslog configuration
   
-3. Generating private&public key for ssh communication
-
-4. Setting up alerts & dashboards for proactive security.
-
+3. Generating private&public keys for ssh communication
 
 
 ### 🔧 Lab Setup
@@ -80,7 +77,8 @@ Resources:
     <br>
     <br>
     </p>
-Step 1: Wazuh Installation
+    
+## Step 1: Wazuh Installation
 
 • Download & Run the Installer
 
@@ -109,7 +107,7 @@ Run the Wazuh password tool to set a secure password for the admin user:
 
 `sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>`
 
-⚠️ If you put a space before a command, it prevents that command from being saved in the shell's history. This is good security practice so that your plaintext password won't be visible in the history ⚠️
+#### ⚠️ If you put a space before a command, it prevents that command from being saved in the shell's history. This is good security practice so that your plaintext password won't be visible in the history ⚠️
 
 • Restart Dependent Services
    
@@ -159,8 +157,11 @@ Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
 Restart wazuh `sudo systemctl restart wazuh-manager`
 
 Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo netstat -tuln | grep 514`
-
-Step 2: Configure MikroTik Log Forwarding
+<p>
+  <br>
+    <br>
+    </p>
+## Step 2: Configure MikroTik Log Forwarding
 
 
 Log into MikroTik via winbox and navigate to: System > Logging > Actions
