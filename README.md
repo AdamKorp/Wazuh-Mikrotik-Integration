@@ -73,3 +73,25 @@ VM: Ubuntu 24.04.2 LTS,
 Resources:
 8GB RAM, 
 70GB disk storage
+
+
+Step 1: Wazuh Installation
+
+1. Download & Run the Installer
+
+
+```curl -sO https://packages.wazuh.com/4.11/wazuh-install.sh && sudo bash ./wazuh-install.sh -a```
+
+
+This script automates the installation of Wazuh manager, indexer, and dashboard.
+
+The -a flag installs all components (single-node deployment).
+
+
+2. Disable Automatic Updates (Optional but Recommended for Lab Environments)
+
+
+`sudo sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list`
+
+
+`sudo apt update`
