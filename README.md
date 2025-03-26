@@ -103,6 +103,8 @@ Run the Wazuh password tool to set a secure password for the admin user:
 
 `sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>`
 
+⚠️ If you put a space before a command, it prevents that command from being saved in the shell's history. This is good security practice so that your plaintext password won't be visible in the history ⚠️
+
 2. Restart Dependent Services
    
 Apply the changes by restarting Filebeat and the Wazuh Dashboard:
