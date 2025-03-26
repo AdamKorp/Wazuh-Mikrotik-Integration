@@ -158,7 +158,7 @@ Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
 
 Restart wazuh `sudo systemctl restart wazuh-manager`
 
-Verify if Wazuh is listening: `sudo netstat -tuln | grep 514`
+Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo netstat -tuln | grep 514`
 
 
 
