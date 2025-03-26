@@ -160,5 +160,34 @@ Restart wazuh `sudo systemctl restart wazuh-manager`
 
 Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo netstat -tuln | grep 514`
 
+Step 4: Configure MikroTik Log Forwarding
+
+
+Log into MikroTik via winbox and navigate to: System > Logging > Actions
+
+Click "New" and create new action. Name: remote, Type: remote. Apply and then double click on newly created "remote action" to add adjust more settings. 
+
+Remote Address: <Wazuh server IP>, Remote Port: 514, src address: <MikrotiK's IP>, Remote log format: BDS Syslog, Remote log protocol: UDP. > Apply > OK. 
+
+
+2. Set Logging Rules for each log type to forward:
+
+Go to System > Logging > Rules, Click "New"
+
+Topics: Select one (e.g., critical), Action: remote > Click Apply > OK
+
+Recommended Topics to Forward: critical, error, firewall, info, system, warning
+
+Step 5: Verify Log Transmission
+On Wazuh Server identify your network interface:
+
+`ip a` (e.g., ens18)
+
+Monitor incoming logs by running a command  `sudo tcpdump -i ens18 tcp port 514 -A` and simulate a failed Winbox login → Logs should appear in tcpdump output.
+
+
+
+
+
 
 
