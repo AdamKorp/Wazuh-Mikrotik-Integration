@@ -139,9 +139,8 @@ Why?
 Allows easy rollback if something goes wrong along the way!
 
 
-Step 3: Configure Wazuh for MikroTik Syslog Integration
+Step 3: Configure Wazuh to listen on port 514
 
-1. Configure Wazuh as a Syslog Server
    
 Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
 
@@ -149,7 +148,7 @@ Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
 <remote>
   <connection>syslog</connection>
   <port>514</port>
-  <protocol>tcp</protocol>       <!-- TCP for reliable delivery -->
+  <protocol>udp</protocol>     
   <allowed-ips>192.168.1.1</allowed-ips>  <!-- Your MikroTik's IP -->
   <local_ip>192.168.1.63</local_ip>       <!-- Wazuh server IP -->
 </remote>`
