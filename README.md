@@ -2,11 +2,11 @@
 Deployment of open-source SIEM + EDR solution and integration with Mikrotik routers
 Home Network Security: Wazuh + MikroTik Integration
 
-Goal: Deploy Wazuh, a powerful open-source XDR/SIEM platform, on a home network and integrate it with MikroTik routers for enhanced security monitoring at a low cost.
+###### Goal: Deploy Wazuh, a powerful open-source XDR/SIEM platform, on a home network and integrate it with MikroTik routers for enhanced security monitoring at a low cost.
 
 
 
-Why Wazuh?
+### Why Wazuh?
 
 Wazuh is a free, open-source security platform that unifies Extended Detection and Response (XDR) and Security Information and Event Management (SIEM) capabilities. It provides:
 
@@ -20,7 +20,7 @@ Wazuh is a free, open-source security platform that unifies Extended Detection a
 
 
 
-Why MikroTik?
+### Why MikroTik?
 
 MikroTik routers are affordable yet powerful, running RouterOS, a Linux-based OS with:
 
@@ -34,7 +34,7 @@ MikroTik routers are affordable yet powerful, running RouterOS, a Linux-based OS
 
 
 
-Why This Integration?
+### Why This Integration?
 
 By combining Wazuh’s advanced threat detection with MikroTik’s network control, you get:
 
@@ -47,7 +47,7 @@ By combining Wazuh’s advanced threat detection with MikroTik’s network contr
 
 
 
-Let’s Build It!
+### Let’s Build It!
 
 This project will guide you through:
 
@@ -61,7 +61,7 @@ This project will guide you through:
 
 
 
-🔧 Lab Setup
+### 🔧 Lab Setup
 
 🛡️ MikroTik Device:
 Model: hAP ax2, 
@@ -75,6 +75,11 @@ Resources:
 70GB disk storage
 
 
+<p>
+  <br>
+    <br>
+    <br>
+    </p>
 Step 1: Wazuh Installation
 
 • Download & Run the Installer
