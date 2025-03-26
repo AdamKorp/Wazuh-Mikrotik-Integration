@@ -77,8 +77,8 @@ Resources:
     <br>
     <br>
     </p>
-    
-## Step 1: Wazuh Installation
+
+## Step 1: Wazuh Installation & Configuration
 
 • Download & Run the Installer
 
@@ -161,6 +161,7 @@ Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo net
   <br>
     <br>
     </p>
+    
 ## Step 2: Configure MikroTik Log Forwarding
 
 
