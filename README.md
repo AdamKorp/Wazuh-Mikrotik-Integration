@@ -137,3 +137,27 @@ Go to your Proxmox web interface. Locate the Wazuh VM and Click "Snapshot". Name
 Why?
 
 Allows easy rollback if something goes wrong along the way!
+
+
+Step 3: Configure Wazuh for MikroTik Syslog Integration
+
+1. Configure Wazuh as a Syslog Server
+   
+Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
+
+`<!-- MikroTik Syslog Integration -->
+<remote>
+  <connection>syslog</connection>
+  <port>514</port>
+  <protocol>tcp</protocol>       <!-- TCP for reliable delivery -->
+  <allowed-ips>192.168.1.1</allowed-ips>  <!-- Your MikroTik's IP -->
+  <local_ip>192.168.1.63</local_ip>       <!-- Wazuh server IP -->
+</remote>`
+
+
+Restart wazuh `sudo systemctl restart wazuh-manager`
+
+Verify if Wazuh is listening: `sudo netstat -tuln | grep 514`
+
+
+
