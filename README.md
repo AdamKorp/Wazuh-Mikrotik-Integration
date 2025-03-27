@@ -187,6 +187,8 @@ On Wazuh Server identify your network interface:
 
 Monitor incoming logs by running a command  `sudo tcpdump -i ens18 tcp port 514 -A` and simulate a failed Winbox login → Logs should appear in tcpdump output.
 
+Now, to double-check that Wazuh is correctly receiving them, go to the Wazuh dashboard. In the top left corner, go to the menu, then > Explore > Discover. Search for 'winbox' to check if you can see the output log.
+
 <p>
   <br>
     <br>
@@ -230,7 +232,12 @@ System > Users > SSH Keys > Import: User: wazuh, Key File: Select your uploaded 
 `ssh wazuh@<MikroTik-IP>`
 
 #### 🎉 Success? You’ll log in instantly without a password.
-
+<p>
+  <br>
+    <br>
+    </p>
+    
+All done! Wazuh and MikroTik are now integrated. In the next projects, I'll share custom decoders for MikroTik logs as well as active response scripts. Don't forget to snapshot your working configuration, just in case something goes wrong in the future
 
 
 
