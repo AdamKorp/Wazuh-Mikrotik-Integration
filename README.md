@@ -213,7 +213,7 @@ Leave passphrase empty (press Enter twice)
 
 `cat ~/.ssh/id_rsa.pub`
 
-$$$$ • 📌 Save the output (starts with ssh-rsa AAA...) as a .txt file on your PC.
+#### • 📌 Save the output (starts with ssh-rsa AAA...) as a .txt file on your PC.
 
 #### •  ⚙️ Configure MikroTik
 
