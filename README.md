@@ -83,8 +83,9 @@ Resources:
 • Download & Run the Installer
 
 
-```curl -sO https://packages.wazuh.com/4.11/wazuh-install.sh && sudo bash ./wazuh-install.sh -a```
-
+``` 
+curl -sO https://packages.wazuh.com/4.11/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
+```
 
 This script automates the installation of Wazuh manager, indexer, and dashboard.
 
@@ -94,18 +95,23 @@ The -a flag installs all components (single-node deployment).
 • Disable Automatic Updates (Optional but Recommended for Lab Environments)
 
 
-`sudo sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list`
-
-
-`sudo apt update`
+```
+sudo sed -i "s/^deb /#deb /" /etc/apt/sources.list.d/wazuh.list
+sudo apt update
+```
 
 • Reset the Default Password
 
-Download password tool by running a command `curl -so wazuh-passwords-tool.sh https://packages.wazuh.com/4.11/wazuh-passwords-tool.sh`
+Download password tool by running a command 
+```
+curl -so wazuh-passwords-tool.sh https://packages.wazuh.com/4.11/wazuh-passwords-tool.sh
+```
 
 Run the Wazuh password tool to set a secure password for the admin user:
 
-`sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>`
+```
+sudo bash /usr/share/wazuh-indexer/plugins/opensearch-security/tools/wazuh-passwords-tool.sh -u admin -p <YOUR_PASSWORD>
+```
 
 #### ⚠️ If you put a space before a command, it prevents that command from being saved in the shell's history. This is good security practice so that your plaintext password won't be visible in the history ⚠️
 
@@ -113,9 +119,12 @@ Run the Wazuh password tool to set a secure password for the admin user:
    
 Apply the changes by restarting Filebeat and the Wazuh Dashboard:
 
-`sudo systemctl restart filebeat.service`
+```
+sudo systemctl restart filebeat.service
 
-`sudo systemctl restart wazuh-dashboard.service`
+
+sudo systemctl restart wazuh-dashboard.service
+```
 
 • Access the Wazuh Dashboard
    
@@ -126,13 +135,16 @@ Log in with: Username: admin and Password: <YOUR__UPDATED_PASSWORD>
 If you see "Wazuh dashboard server is not ready yet" wait 1–2 minutes for services to initialise.
 
 Check status with:
-`sudo systemctl status wazuh-dashboard`
+```
+sudo systemctl status wazuh-dashboard
+```
 
 • (Recommended) Create a Proxmox Snapshot
-   
+
 Before proceeding further, snapshot your VM in Proxmox:
 
 Go to your Proxmox web interface. Locate the Wazuh VM and Click "Snapshot". Name it (e.g., Clean_Wazuh_Base).
+
 
 Why?
 
@@ -142,21 +154,37 @@ Allows easy rollback if something goes wrong along the way!
 • Configure Wazuh to listen on port 514
 
    
-Edit the main configuration file: `sudo nano /var/ossec/etc/ossec.conf` and add:
+Edit the main configuration file: 
+```
+sudo nano /var/ossec/etc/ossec.conf
+```
+and add:
 
-`<!-- MikroTik Syslog Integration -->
+```
+<!-- MikroTik Syslog Integration -->
 <remote>
   <connection>syslog</connection>
   <port>514</port>
   <protocol>udp</protocol>     
   <allowed-ips>192.168.1.1</allowed-ips>  <!-- Your MikroTik's IP -->
   <local_ip>192.168.1.63</local_ip>       <!-- Wazuh server IP -->
-</remote>`
+</remote>
+```
 
 
-Restart wazuh `sudo systemctl restart wazuh-manager`
+Restart wazuh 
+```
+sudo systemctl restart wazuh-manager
+```
 
-Verify if Wazuh is listening: Install  `apt install net-tools` and run `sudo netstat -tuln | grep 514`
+To verify if Wazuh is listening, install  
+```
+apt install net-tools
+```
+and run
+```
+sudo netstat -tuln | grep 514
+```
 <p>
   <br>
     <br>
@@ -183,9 +211,16 @@ Recommended Topics to Forward: critical, error, firewall, info, system, warning
 Step 5: Verify Log Transmission
 On Wazuh Server identify your network interface:
 
-`ip a` (e.g., ens18)
+```
+ip a
+```
+(e.g., ens18)
 
-Monitor incoming logs by running a command  `sudo tcpdump -i ens18 tcp port 514 -A` and simulate a failed Winbox login → Logs should appear in tcpdump output.
+Monitor incoming logs by running a command  
+```
+sudo tcpdump -i ens18 tcp port 514 -A
+```
+ and simulate a failed Winbox login → Logs should appear in tcpdump output.
 
 Now, to double-check that Wazuh is correctly receiving them, go to the Wazuh dashboard. In the top left corner, go to the menu, then > Explore > Discover. Search for 'winbox' to check if you can see the output log.
 
@@ -199,21 +234,27 @@ We’ll generate an SSH key for the wazuh user to enable secure, passwordless ac
 
 #### • 🛠️ Generate SSH Key
 
-run `ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa`
+run 
+```
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa
+```
 
 Leave passphrase empty (press Enter twice)
 
 #### • 🔒 Set permissions:
 
-`chmod 700 ~/.ssh`
+```
+chmod 700 ~/.ssh
 
-`chmod 600 ~/.ssh/id_rsa`
+chmod 600 ~/.ssh/id_rsa
 
-`chmod 644 ~/.ssh/id_rsa.pub`
-
+chmod 644 ~/.ssh/id_rsa.pub
+```
 #### •  📋 Copy the Public Key
 
-`cat ~/.ssh/id_rsa.pub`
+```
+cat ~/.ssh/id_rsa.pub
+```
 
 #### • 📌 Save the output (starts with ssh-rsa AAA...) as a .txt file on your PC.
 
@@ -229,7 +270,9 @@ System > Users > SSH Keys > Import: User: wazuh, Key File: Select your uploaded 
 
 #### •  ✅ Test Connection
 
-`ssh wazuh@<MikroTik-IP>`
+```
+ssh wazuh@<MikroTik-IP>
+```
 
 #### 🎉 Success? You’ll log in instantly without a password.
 <p>
