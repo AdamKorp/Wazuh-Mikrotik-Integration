@@ -187,8 +187,49 @@ On Wazuh Server identify your network interface:
 
 Monitor incoming logs by running a command  `sudo tcpdump -i ens18 tcp port 514 -A` and simulate a failed Winbox login → Logs should appear in tcpdump output.
 
+<p>
+  <br>
+    <br>
+    </p>
+    
+## 🔑 Step 3: SSH Key Setup for Wazuh → MikroTik
+We’ll generate an SSH key for the wazuh user to enable secure, passwordless access (for future active response scripts).
 
+#### • 🛠️ Generate SSH Key
 
+run `ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa`
+
+Leave passphrase empty (press Enter twice)
+
+#### • 🔒 Set permissions:
+
+`chmod 700 ~/.ssh`
+
+`chmod 600 ~/.ssh/id_rsa`
+
+`chmod 644 ~/.ssh/id_rsa.pub`
+
+#### •  📋 Copy the Public Key
+
+`cat ~/.ssh/id_rsa.pub`
+
+$$$$ • 📌 Save the output (starts with ssh-rsa AAA...) as a .txt file on your PC.
+
+#### •  ⚙️ Configure MikroTik
+
+Create wazuh user:
+
+Winbox: System > Users > "+" > Name: wazuh | Group: full → Apply/OK
+
+Import SSH key: Upload the .txt file via Files
+
+System > Users > SSH Keys > Import: User: wazuh, Key File: Select your uploaded file > Click Import Key
+
+#### •  ✅ Test Connection
+
+`ssh wazuh@<MikroTik-IP>`
+
+#### 🎉 Success? You’ll log in instantly without a password.
 
 
 
