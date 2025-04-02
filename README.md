@@ -24,9 +24,9 @@ Wazuh is a free, open-source security platform that unifies Extended Detection a
 
 MikroTik routers are affordable yet powerful, running RouterOS, a Linux-based OS with:
 
-✔ Firewall & Traffic Filtering – Blocks unauthorized access.
+✔ Firewall & Traffic Filtering – Blocks unauthorised access.
 
-✔ Bandwidth Management – Controls and prioritizes network traffic.
+✔ Bandwidth Management – Controls and prioritises network traffic.
 
 ✔ VPN & Hotspot Support – Secure remote access and guest networks.
 
