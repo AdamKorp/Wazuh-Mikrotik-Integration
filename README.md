@@ -2,7 +2,7 @@
 Deployment of open-source SIEM + EDR solution and integration with Mikrotik routers
 Home Network Security: Wazuh + MikroTik Integration
 
-###### Goal: Deploy Wazuh, a powerful open-source XDR/SIEM platform, on a home network and integrate it with MikroTik routers for enhanced security monitoring at a low cost.
+##### Goal: Deploy Wazuh, a powerful open-source XDR/SIEM platform, on a home network and integrate it with MikroTik routers for enhanced security monitoring at a low cost.
 
 
 
@@ -57,6 +57,7 @@ This project will guide you through:
   
 3. Generating private&public keys for ssh communication
 
+4. Creating an active response script for failed logins and AbuseIPDB integration 
 
 ### 🔧 Lab Setup
 
@@ -279,8 +280,53 @@ ssh wazuh@<MikroTik-IP>
   <br>
     <br>
     </p>
-    
-All done! Wazuh and MikroTik are now integrated. In the next projects, I'll share custom decoders for MikroTik logs as well as active response scripts. Don't forget to snapshot your working configuration, just in case something goes wrong in the future
+
+## Step 4: Creating an active response script for failed logins and AbuseIPDB integration 🛡️
+
+ #### 💻 Navigate to the active response directory:
+ ```
+cd /var/ossec/active-response/bin
+````
+#### ✍️ Open the script file for editing:
+
+
+```
+nano abuseipdb-reputation.py
+```
+📋 Paste the script from the project (you can find it at the top of the page), then save and exit. DON'T FORGET TO REPLACE YOUR API-KEY WITHIN THE SCRIPT 💾
+
+#### 🔑 Change permissions for the script:
+```
+sudo chmod +x abuseipdb-reputation.py
+sudo chown root:wazuh abuseipdb-reputation.py
+```
+
+🖥️ Log into the Wazuh dashboard and add the Mikrotik decoders and rules uploaded to this project (also available at the top of the page), then save. 🔒
+
+📝 Edit the ossec.conf file and add the following:
+
+```
+    <command>
+    <name>abuseipdb-check</name>
+    <executable>abuseipdb-reputation.py</executable>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <active-response>
+    <disabled>no</disabled>
+    <command>abuseipdb-check</command>
+    <location>server</location>  <!-- Runs on the Wazuh server, not agents -->
+    <rules_id>115002</rules_id>  <!-- Trigger when rule 115002 is fired -->
+    <timeout>60</timeout>
+  </active-response>
+```
+
+#### 🔄 Finally, restart the Wazuh manager. 
+
+<p>
+  <br>
+    </p>
+All done! Wazuh and MikroTik are now integrated. Wazuh will effectively communicate with MikroTik to recognize potentially malicious login attempts and quarantine IP addresses with a bad reputation.
 
 
 
