@@ -326,7 +326,7 @@ sudo chown root:wazuh abuseipdb-reputation.py
 <p>
   <br>
     </p>
-All done! Wazuh and MikroTik are now integrated. Wazuh will effectively communicate with MikroTik to recognize potentially malicious login attempts and quarantine IP addresses with a bad reputation.
+All done! Wazuh and MikroTik are now integrated. Wazuh will effectively communicate with MikroTik to recognise potentially malicious login attempts and quarantine IP addresses with a bad reputation.
 
 
 
