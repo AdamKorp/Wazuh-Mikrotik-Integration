@@ -1,0 +1,11 @@
+<decoder name="mikrotik_login_failure">
+  <prematch>login failure for user </prematch>
+  <regex offset="after_prematch">(\S+) from (\S+) via (\S+)$</regex>
+  <order>user, srcip, access_method</order>
+</decoder>
+
+<decoder name="mikrotik_login_success">
+  <prematch>user (\S+) logged (\S+) from (\S+) via (\S+)</prematch>
+  <regex type="pcre2">user (\S+) logged in from (\S+) via (\S+)</regex>
+  <order>user, srcip, access_method</order>
+</decoder>
