@@ -295,7 +295,7 @@ nano abuseipdb-reputation.py
 ```
 📋 Paste the script from the project (you can find it at the top of the page), then save and exit. DON'T FORGET TO REPLACE YOUR API-KEY WITHIN THE SCRIPT 💾
 
-You may need to install request library to properly execute the script. To do it simply run the command 
+You may need to install request library to properly execute the script. To do it simply run the command.
 ```
 pip3 install requests
 ```
